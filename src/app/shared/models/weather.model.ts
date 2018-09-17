@@ -1,4 +1,10 @@
 export interface City {
+    base: string;
+    cod: number;
+    dt: number;
+    id: number;
+    name: string;
+    visibility: number;
     coord: Coord;
     weather: Weather;
     main: Main;

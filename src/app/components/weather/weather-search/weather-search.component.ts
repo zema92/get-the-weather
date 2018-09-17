@@ -4,6 +4,7 @@ import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { WeatherService } from 'src/app/shared/services/weather.service';
 import { City } from 'src/app/shared/models/weather.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-weather-search',
@@ -17,12 +18,13 @@ export class WeatherSearchComponent implements OnInit {
   @Output()
   private searchForCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.weatherService.city.subscribe((data: City) => {
       this.cities.push(data);
       console.log(this.cities);
+      this.toastr.success(`${data.name} weather conditions are displayed.`, 'Success!');
       this.searchForCityForecast.emit(this.cities);
     });
   }
