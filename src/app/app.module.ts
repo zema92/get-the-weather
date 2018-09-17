@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { routing } from 'src/app/app.routing';
 
-
 @NgModule({
   declarations: [
     AppComponent

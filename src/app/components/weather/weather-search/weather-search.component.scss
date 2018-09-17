@@ -1,0 +1,39 @@
+@import 'src/sass/variables';
+
+.search { 
+	display: flex;
+	justify-content: center;
+	align-items: center;  
+	background-color: $background-color-search; 
+	min-height: 60px; 
+
+	&__wrapper {
+		display: flex; 
+		justify-content: space-between;
+		background-color: $background-color-secondary;
+		margin: 0 20vw; 
+		padding: 0 10px;
+		min-height: 40px;
+		width: 100%;  
+
+		> div {
+			display: flex;
+			align-items: center;
+
+			input {
+				background-color: $background-color-secondary; 
+				border: none;
+				width: 200px;
+				color: white;
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+	}
+
+	&__icon {
+		align-self: center;
+	}
+}

@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { routing } from './weather.routing';
 import { WeatherListComponent } from './weather-list/weather-list.component';
 import { WeatherSearchComponent } from './weather-search/weather-search.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    routing
+    routing,
+    FontAwesomeModule
   ],
   declarations: [
     WeatherListComponent,

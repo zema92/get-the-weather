@@ -1,3 +1,15 @@
-<p>
-  weather-search works!
-</p>
+<div class="search">
+	<div class="search__wrapper">
+		<div>
+			<input 
+				type="text" 
+				placeholder="Search" 
+				#searchInput 
+				(keyup.enter)="onSearch(searchInput.value)"
+			>
+		</div>
+		<div class="search__icon">
+			<fa-icon [icon]="searchIcon"></fa-icon>
+		</div>
+	</div>
+</div>

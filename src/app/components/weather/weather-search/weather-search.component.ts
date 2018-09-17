@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-weather-search',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weather-search.component.scss']
 })
 export class WeatherSearchComponent implements OnInit {
+  public readonly searchIcon = faSearch;
 
   constructor() { }
 
