@@ -42,8 +42,37 @@ export class WeatherSearchComponent implements OnInit {
   }
 
   public onSearch(searchTerm: string): void {
+    let multipleCities = searchTerm.split(',');
+
+    multipleCities = multipleCities.map(city => {
+      return city.trim();
+    });
+
+    if (multipleCities.length > 1) {
+      this.cities.forEach((city: City) => {
+
+        multipleCities = multipleCities.filter((searchCity: string) => {
+          this.checkIfCityAlreadyExists(searchCity);
+
+          return city.name.toLowerCase() !== searchCity.toLowerCase();
+        });
+      });
+
+      this.weatherService.getMultipleCities(multipleCities);
+    } else {
+      this.checkIfCityAlreadyExists(searchTerm);
+
+      if (!this.isCitySerched) {
+        this.weatherService.getWeatherForCity(searchTerm);
+      }
+    }
+
+    this.searchInput.nativeElement.value = '';
+  }
+
+  public checkIfCityAlreadyExists(searchTerm: string): void {
     this.cities.some((city: City) => {
-      this.isCitySerched = city.name.toLowerCase() === searchTerm ? true : false;
+      this.isCitySerched = city.name.toLowerCase() === searchTerm.toLowerCase() ? true : false;
 
       if (this.isCitySerched) {
         this.toastr.info(`You've already searched for ${city.name}.`, 'Info!');
@@ -51,12 +80,6 @@ export class WeatherSearchComponent implements OnInit {
         return true;
       }
     });
-
-    if (!this.isCitySerched) {
-      this.weatherService.getWeatherForCity(searchTerm);
-    }
-
-    this.searchInput.nativeElement.value = '';
   }
 
   public removeCity(cityForRemoval: City): void {
