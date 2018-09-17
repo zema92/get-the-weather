@@ -5,10 +5,9 @@ import { WeatherListComponent } from './weather-list/weather-list.component';
 import { WeatherSearchComponent } from './weather-search/weather-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     routing,
     FontAwesomeModule
   ],
