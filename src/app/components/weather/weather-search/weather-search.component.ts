@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class WeatherSearchComponent implements OnInit {
   public readonly searchIcon = faSearch;
   public cities: Array<City> = new Array<City>();
+  public isCitySerched = false;
 
   @Output()
   private searchForCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
@@ -23,13 +24,24 @@ export class WeatherSearchComponent implements OnInit {
   ngOnInit() {
     this.weatherService.city.subscribe((data: City) => {
       this.cities.push(data);
-      console.log(this.cities);
       this.toastr.success(`${data.name} weather conditions are displayed.`, 'Success!');
       this.searchForCityForecast.emit(this.cities);
     });
   }
 
   public onSearch(searchTerm: string): void {
-    this.weatherService.getWeatherForCity(searchTerm);
+    this.cities.some((city: City) => {
+      this.isCitySerched = city.name.toLowerCase() === searchTerm ? true : false;
+
+      if (this.isCitySerched) {
+        this.toastr.info(`You've already searched for ${city.name}.`, 'Info!');
+
+        return true;
+      }
+    });
+
+    if (!this.isCitySerched) {
+      this.weatherService.getWeatherForCity(searchTerm);
+    }
   }
 }

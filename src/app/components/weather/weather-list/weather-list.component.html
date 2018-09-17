@@ -2,5 +2,21 @@
   (searchForCityForecast)="onSearchForCityForecast($event)"
 >
 </app-weather-search>
-
-{{cityList | json}}
+<div class="weather-list">
+  <div class="weather-item card" *ngFor="let city of cityList">
+    <div class="card-body">
+      <div> 
+        <h6>{{ city.name }}</h6> 
+        <p>{{ today | amDateFormat:'MMMM Do' }}</p>
+      </div> 
+      <div> 
+        <h3>{{ city.main.temp - 273 | number : '1.0-0' }} <span>&#8451;</span></h3> 
+        <p>{{ city.weather[0].main }}</p> 
+      </div> 
+      <div> 
+        <p>Humidity: {{ city.main.humidity }}%</p> 
+        <p>Wind: {{ city.wind.speed }}km/h</p> 
+      </div> 
+    </div>
+  </div>
+</div>

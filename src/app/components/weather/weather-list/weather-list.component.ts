@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from './../../../shared/models/weather.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-weather-list',
@@ -8,6 +9,7 @@ import { City } from './../../../shared/models/weather.model';
 })
 export class WeatherListComponent implements OnInit {
   public cityList: Array<City> = new Array<City>();
+  public today = moment().format();
 
   constructor() { }
 
