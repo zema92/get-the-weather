@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { WeatherService } from 'src/app/shared/services/weather.service';
 import { City } from 'src/app/shared/models/weather.model';
 import { ToastrService } from 'ngx-toastr';
@@ -13,11 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class WeatherSearchComponent implements OnInit {
   public readonly searchIcon = faSearch;
+  public readonly removeIcon = faTimes;
   public cities: Array<City> = new Array<City>();
   public isCitySerched = false;
 
   @Output()
   private searchForCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
+
+  @ViewChild('searchInput')
+  private searchInput: ElementRef;
 
   constructor(private weatherService: WeatherService, private toastr: ToastrService) { }
 
@@ -43,5 +45,7 @@ export class WeatherSearchComponent implements OnInit {
     if (!this.isCitySerched) {
       this.weatherService.getWeatherForCity(searchTerm);
     }
+
+    this.searchInput.nativeElement.value = '';
   }
 }

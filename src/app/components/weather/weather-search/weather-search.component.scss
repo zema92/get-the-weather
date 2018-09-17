@@ -35,5 +35,37 @@
 
 	&__icon {
 		align-self: center;
+		color: white;
+	}
+
+	&__results {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		margin-right: 15px;
+	}
+
+	&__tag {
+		display: flex;
+		justify-content: space-between;
+		margin: 5px;
+		background-color: #9BA2AA;
+
+		p {
+			padding-left: 10px;
+			align-self: center;
+			color: white;
+		}
+	}
+
+	&__btn {
+		&--remove {
+			background: none;
+			padding: 3px 10px !important;
+
+			&:focus {
+				outline: none;
+			}
+		}
 	}
 }

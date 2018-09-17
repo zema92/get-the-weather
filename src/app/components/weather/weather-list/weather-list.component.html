@@ -3,10 +3,10 @@
 >
 </app-weather-search>
 <div class="weather-list">
-  <div class="weather-item card" *ngFor="let city of cityList">
+  <div class="weather-item card" *ngFor="let city of cityList; trackBy: city?.id">
     <div class="card-body">
       <div> 
-        <h6>{{ city.name }}</h6> 
+        <h4>{{ city.name }}</h4> 
         <p>{{ today | amDateFormat:'MMMM Do' }}</p>
       </div> 
       <div> 
@@ -14,7 +14,7 @@
         <p>{{ city.weather[0].main }}</p> 
       </div> 
       <div> 
-        <p>Humidity: {{ city.main.humidity }}%</p> 
+        <p class="humidity">Humidity: {{ city.main.humidity }}%</p> 
         <p>Wind: {{ city.wind.speed }}km/h</p> 
       </div> 
     </div>

@@ -1,6 +1,16 @@
 <div class="search">
 	<div class="search__wrapper">
 		<div>
+			<div class=search__results *ngIf="cities.length > 0">
+				<div class="search__tag" *ngFor="let city of cities; trackBy: city?.id">
+					<p>{{ city.name }}</p>
+					<button class="btn search__btn--remove" (click)="removeCityTag(city.name)">
+						<div class="search__icon">
+							<fa-icon [icon]="removeIcon"></fa-icon>
+						</div>
+					</button>
+				</div>
+			</div>
 			<input 
 				type="text" 
 				placeholder="Search" 
