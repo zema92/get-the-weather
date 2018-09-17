@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { routing } from 'src/app/app.routing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { ResponseInterceptorService } from 'src/app/shared/services/response-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { ModalComponent } from './shared/components/modal/modal.component';
     BrowserAnimationsModule,
     ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptorService, multi: true }
+  ],
   entryComponents: [
     ModalComponent
   ],

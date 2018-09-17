@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { City, Coord } from 'src/app/shared/models/weather.model';
 import { concat } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
 import { forkJoin } from 'rxjs';
 import { concatAll } from 'rxjs/operators';
+import { catchError} from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -32,7 +33,11 @@ export class WeatherService {
       cities.map(city => {
         const params = new HttpParams().set('q', city);
 
-        return this.http.get(this.apiUrl, { params: params });
+        return this.http.get(this.apiUrl, { params: params }).pipe(
+          catchError((error, obs) => {
+            return of(null);
+          })
+        );
       })
     )
     .pipe(concatAll())

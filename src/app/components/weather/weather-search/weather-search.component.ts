@@ -35,9 +35,11 @@ export class WeatherSearchComponent implements OnInit {
 
   ngOnInit() {
     this.weatherService.city.subscribe((data: City) => {
-      this.cities.push(data);
-      this.toastr.success(`${data.name} weather conditions are displayed.`, 'Success!');
-      this.searchForCityForecast.emit(this.cities);
+      if (data) {
+        this.cities.push(data);
+        this.toastr.success(`${data.name} weather conditions are displayed.`, 'Success!');
+        this.searchForCityForecast.emit(this.cities);
+      }
     });
   }
 
@@ -50,7 +52,6 @@ export class WeatherSearchComponent implements OnInit {
 
     if (multipleCities.length > 1) {
       this.cities.forEach((city: City) => {
-
         multipleCities = multipleCities.filter((searchCity: string) => {
           this.checkIfCityAlreadyExists(searchCity);
 
