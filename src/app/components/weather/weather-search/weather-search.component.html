@@ -4,7 +4,7 @@
 			<div class=search__results *ngIf="cities.length > 0">
 				<div class="search__tag" *ngFor="let city of cities; trackBy: city?.id">
 					<p>{{ city.name }}</p>
-					<button class="btn search__btn--remove" (click)="removeCityTag(city.name)">
+					<button class="search__btn--remove" (click)="openRemoveCityModal(city)">
 						<div class="search__icon">
 							<fa-icon [icon]="removeIcon"></fa-icon>
 						</div>

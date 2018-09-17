@@ -3,6 +3,8 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { WeatherService } from 'src/app/shared/services/weather.service';
 import { City } from 'src/app/shared/models/weather.model';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ModalComponent } from './../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-weather-search',
@@ -14,14 +16,22 @@ export class WeatherSearchComponent implements OnInit {
   public readonly removeIcon = faTimes;
   public cities: Array<City> = new Array<City>();
   public isCitySerched = false;
+  public modalRef: BsModalRef;
 
   @Output()
   private searchForCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
 
+  @Output()
+  private deleteCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
+
   @ViewChild('searchInput')
   private searchInput: ElementRef;
 
-  constructor(private weatherService: WeatherService, private toastr: ToastrService) { }
+  constructor(
+    private weatherService: WeatherService,
+    private toastr: ToastrService,
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
     this.weatherService.city.subscribe((data: City) => {
@@ -47,5 +57,22 @@ export class WeatherSearchComponent implements OnInit {
     }
 
     this.searchInput.nativeElement.value = '';
+  }
+
+  public removeCity(cityForRemoval: City): void {
+    this.cities = this.cities.filter(city => city.id !== cityForRemoval.id);
+    this.deleteCityForecast.emit(this.cities);
+    this.toastr.info(`${cityForRemoval.name} has been deleted.`, 'Info!');
+  }
+
+  public openRemoveCityModal(cityForRemoval: City): void {
+    const initialState = {
+      city: cityForRemoval
+    };
+
+    this.modalRef = this.modalService.show(ModalComponent, {initialState});
+    this.modalRef.content.confirmDeleteCity.subscribe((city: City) => {
+      this.removeCity(city);
+    });
   }
 }

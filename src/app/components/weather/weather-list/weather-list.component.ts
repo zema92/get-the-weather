@@ -20,4 +20,7 @@ export class WeatherListComponent implements OnInit {
     this.cityList = cityList;
   }
 
+  public onDeleteCityForecast(cityList: Array<City>): void {
+    this.cityList = cityList;
+  }
 }
