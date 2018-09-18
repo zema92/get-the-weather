@@ -5,7 +5,7 @@
 </app-weather-search>
 <div class="weather-list">
   <div class="weather-item card" *ngFor="let city of cityList; trackBy: city?.id">
-    <div class="card-body">
+    <div class="card-body" [routerLink]="['forecast', city.id]">
       <div> 
         <h4>{{ city.name }}</h4> 
         <p>{{ today | amDateFormat:'MMMM Do' }}</p>

@@ -1,0 +1,12 @@
+<div class="forecast">
+    <h3 *ngIf="forecast">Weather forecast for {{ forecast.city.name | uppercase }} in next 5 days!</h3>
+    <div class="forecast__list">
+      <div class="forecast__day" *ngFor="let weather of forecastPerDay; let i = index">
+        <h4>Day {{ i + 1 }}</h4>
+        <p>Temperature: {{ weather.main.temp - 273 | number : '1.0-0' }} <span>&#8451;</span></p>
+        <p>Humidity: {{ weather.main.humidity }}%</p> 
+        <p>Wind: {{weather.wind.speed }}km/h</p>
+        <p>Pressure: {{weather.main.pressure }}p</p> 
+      </div>
+    </div>
+  </div>
