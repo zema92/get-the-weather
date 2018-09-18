@@ -6,13 +6,17 @@ import { WeatherSearchComponent } from './weather-search/weather-search.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MomentModule } from 'ngx-moment';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
   CommonModule,
     routing,
     FontAwesomeModule,
-    MomentModule
+    MomentModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyByJtwUxiM0PNvNSLgADf_7pHP4f2zh0qQ'
+    })
   ],
   declarations: [
     WeatherListComponent,

@@ -11,6 +11,9 @@ import { Forecast } from 'src/app/shared/models/forecast.model';
 export class WeatherForecastComponent implements OnInit {
   public forecast: any;
   public forecastPerDay: Array<Forecast> = new Array<Forecast>();
+  public latitude: number;
+  public longitude: number;
+  public readonly execomIconUrl = `/src/assets/execom-icon2.jpg`;
 
   constructor(private weatherService: WeatherService, private activatedRoute: ActivatedRoute) { }
 
@@ -27,6 +30,9 @@ export class WeatherForecastComponent implements OnInit {
           }
         }
       }
+
+      this.latitude = this.forecast.city.coord.lat;
+      this.longitude = this.forecast.city.coord.lon;
     });
   }
 }

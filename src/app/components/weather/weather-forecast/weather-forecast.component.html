@@ -10,3 +10,11 @@
       </div>
     </div>
   </div>
+  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="13">
+    <agm-marker
+      [latitude]="latitude" 
+      [longitude]="longitude"
+      [iconUrl]="execomIconUrl"
+    >
+    </agm-marker>
+  </agm-map>
