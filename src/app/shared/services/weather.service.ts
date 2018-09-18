@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { City, Coord } from 'src/app/shared/models/weather.model';
-import { concat } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-import { concatAll } from 'rxjs/operators';
-import { catchError} from 'rxjs/operators';
+import { concatAll, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 
 @Injectable({
@@ -14,9 +13,9 @@ import { of } from 'rxjs';
 })
 export class WeatherService {
   private readonly apiUrl = 'https://api.openweathermap.org/data/2.5/weather?APPID=2b24342d09ca39a25be37283148b9a1b';
-  public city: Subject<City> = new Subject<City>();
+  public city: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getWeatherForCity(name: string): void {
     if (name && name.trim().length) {

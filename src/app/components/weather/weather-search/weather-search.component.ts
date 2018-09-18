@@ -5,6 +5,8 @@ import { City } from 'src/app/shared/models/weather.model';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalComponent } from './../../../shared/components/modal/modal.component';
+import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-weather-search',
@@ -18,6 +20,9 @@ export class WeatherSearchComponent implements OnInit {
   public isCitySerched = false;
   public modalRef: BsModalRef;
 
+  @LocalStorage('citiesStorage')
+  public storage: any;
+
   @Output()
   private searchForCityForecast: EventEmitter<Array<City>> = new EventEmitter<Array<City>>();
 
@@ -30,13 +35,18 @@ export class WeatherSearchComponent implements OnInit {
   constructor(
     private weatherService: WeatherService,
     private toastr: ToastrService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
+    this.storage = this.localStorageService.retrieve('citiesStorage');
+    this.cities = this.storage;
+
     this.weatherService.city.subscribe((data: City) => {
       if (data) {
         this.cities.push(data);
+        this.localStorageService.store('citiesStorage', this.cities);
         this.toastr.success(`${data.name} weather conditions are displayed.`, 'Success!');
         this.searchForCityForecast.emit(this.cities);
       }
@@ -85,6 +95,7 @@ export class WeatherSearchComponent implements OnInit {
 
   public removeCity(cityForRemoval: City): void {
     this.cities = this.cities.filter(city => city.id !== cityForRemoval.id);
+    this.storage = this.storage.filter(city => city.id !== cityForRemoval.id);
     this.deleteCityForecast.emit(this.cities);
     this.toastr.info(`${cityForRemoval.name} has been deleted.`, 'Info!');
   }
