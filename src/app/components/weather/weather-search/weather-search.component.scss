@@ -1,4 +1,5 @@
 @import 'src/sass/variables';
+@import 'src/sass/mixins';
 
 .search { 
 	display: flex;
@@ -19,12 +20,20 @@
 		> div {
 			display: flex;
 			align-items: center;
+			
+			@include mobile() {
+				flex-wrap: wrap;
+			}
 
 			input {
 				background-color: $background-color-secondary; 
 				border: none;
 				width: 200px;
 				color: white;
+
+				@include mobile() {
+					margin: 10px;
+				}
 
 				&:focus {
 					outline: none;
@@ -36,6 +45,11 @@
 	&__icon {
 		align-self: center;
 		color: white;
+
+		@include mobile() {
+			align-self: flex-end;
+			margin-bottom: 10px;
+		}
 	}
 
 	&__results {

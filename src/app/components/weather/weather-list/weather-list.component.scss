@@ -1,4 +1,5 @@
 @import 'src/sass/variables';
+@import 'src/sass/mixins';
 
 .weather {
   &-list {
@@ -6,19 +7,48 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 70px 10vw 0;
+
+    @include tablet() {
+      justify-content: center;
+    }
   }
 
   &-item {
     flex-basis: 32%;
     margin: 0 5px 30px;
 
+    @include small-desktop() {
+      flex-basis: 48%;
+    }
+
+    @include tablet() {
+      flex-basis: 70%;
+    }
+
+    @include mobile() {
+      flex-basis: 90%;
+    }
+
     > div {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+
+      @include mobile() {
+        > div {
+          flex-basis: 100%;
+          justify-content: center;
+          margin-bottom: 10px;
+        }
+      }
 
       h3 {
         display: flex;
         margin-bottom: 5px;
+
+        @include mobile() {
+          margin: auto 5px;
+        }
 
         span {
           position: relative;
